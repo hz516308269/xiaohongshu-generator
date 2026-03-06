@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书文案生成器 - 一键生成爆款文案</title>
+    <meta name="description" content="免费小红书文案生成工具，一键生成爆款笔记文案，提升你的小红书运营效率">
+    <meta name="keywords" content="小红书文案,文案生成器,小红书运营,爆款文案">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">✨</span>
+            <span class="brand-name">小红书文案生成器</span>
+        </div>
+        <div class="nav-links">
+            <a href="#features">功能特点</a>
+            <a href="#examples">文案案例</a>
+        </div>
+    </nav>
+
+    <!-- 主要内容区 -->
+    <main class="main-container">
+        <!-- 标题区域 -->
+        <section class="hero">
+            <h1>小红书文案生成器</h1>
+            <p class="subtitle">输入产品信息，一键生成爆款标题+文章内容</p>
+        </section>
+
+        <!-- 生成器区域 -->
+        <section class="generator-section">
+            <div class="generator-card">
+                <h2>填写产品信息</h2>
+                
+                <!-- 文案类型选择 -->
+                <div class="form-group">
+                    <label for="type">文案类型 <span class="required">*</span></label>
+                    <select id="type" class="form-select">
+                        <option value="beauty">美妆护肤</option>
+                        <option value="food">美食探店</option>
+                        <option value="travel">旅行攻略</option>
+                        <option value="fashion">穿搭分享</option>
+                        <option value="lifestyle">生活记录</option>
+                        <option value="study">学习干货</option>
+                        <option value="fitness">健身运动</option>
+                        <option value="product">好物推荐</option>
+                        <option value="baby">母婴育儿</option>
+                        <option value="pet">宠物分享</option>
+                        <option value="home">家居装修</option>
+                        <option value="tech">数码科技</option>
+                        <option value="career">职场干货</option>
+                    </select>
+                </div>
+
+                <!-- 产品名输入 -->
+                <div class="form-group">
+                    <label for="productName">产品名/主题 <span class="required">*</span></label>
+                    <input type="text" id="productName" class="form-input" placeholder="例如：防晒霜、成都火锅、云南旅游...">
+                </div>
+
+                <!-- 卖点输入 -->
+                <div class="form-group">
+                    <label for="sellingPoint">产品卖点/特色</label>
+                    <input type="text" id="sellingPoint" class="form-input" placeholder="例如：清爽不油腻、性价比高、拍照好看...">
+                </div>
+
+                <!-- 痛点输入 -->
+                <div class="form-group">
+                    <label for="painPoint">用户痛点/需求</label>
+                    <input type="text" id="painPoint" class="form-input" placeholder="例如：怕晒黑、不知道吃什么、想省钱...">
+                </div>
+
+                <!-- 字数选择 -->
+                <div class="form-group">
+                    <label for="length">文章字数</label>
+                    <select id="length" class="form-select">
+                        <option value="short">200-300字</option>
+                        <option value="long">300-500字</option>
+                    </select>
+                </div>
+
+                <!-- 生成按钮 -->
+                <button id="generateBtn" class="generate-btn">
+                    <span class="btn-icon">✨</span>
+                    生成文案
+                </button>
+            </div>
+        </section>
+
+        <!-- 功能特点 -->
+        <section id="features" class="features-section">
+            <h2>功能特点</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>精准定位</h3>
+                    <p>根据产品卖点、用户痛点精准生成</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📝</span>
+                    <h3>标题+内容</h3>
+                    <p>一键生成爆款标题和完整文章</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔄</span>
+                    <h3>多套模板</h3>
+                    <p>每类型30+模板，重新生成不重样</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💰</span>
+                    <h3>完全免费</h3>
+                    <p>观看广告即可免费使用</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文案案例 -->
+        <section id="examples" class="examples-section">
+            <h2>文案案例</h2>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <span class="example-tag example-tag-title">标题</span>
+                    <p class="example-title">姐妹们！这款防晒霜真的绝了，清爽不油腻！</p>
+                    <span class="example-tag example-tag-content">文章内容</span>
+                    <p class="example-content">夏天来了，防晒真的是头等大事！作为混油皮，最怕防晒油腻腻的，这款防晒真的让我惊喜到了...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 广告弹窗遮罩 -->
+    <div class="ad-overlay" id="adOverlay">
+        <div class="ad-modal">
+            <div class="ad-header">
+                <h3>观看广告解锁内容</h3>
+                <span class="ad-timer" id="adTimer">5秒</span>
+            </div>
+            <div class="ad-content">
+                <div class="ad-placeholder-large">
+                    <p>📢 广告位</p>
+                    <p class="ad-tip">广告收入支持我们提供免费服务</p>
+                </div>
+                <div class="ad-progress">
+                    <div class="ad-progress-bar" id="adProgressBar"></div>
+                </div>
+            </div>
+            <button class="ad-close-btn" id="adCloseBtn" disabled>
+                请等待 <span id="countdown">5</span> 秒
+            </button>
+        </div>
+    </div>
+
+    <!-- 结果弹窗 -->
+    <div class="result-overlay" id="resultOverlay">
+        <div class="result-modal">
+            <div class="result-modal-header">
+                <h3>生成结果</h3>
+                <button class="close-btn" id="closeResultBtn">×</button>
+            </div>
+            <div class="result-modal-body">
+                <!-- 标题结果 -->
+                <div class="result-section">
+                    <div class="result-section-header">
+                        <h4>📝 标题</h4>
+                        <button class="copy-btn" id="copyTitleBtn">复制标题</button>
+                    </div>
+                    <div class="result-title" id="resultTitle"></div>
+                </div>
+                
+                <!-- 文章内容结果 -->
+                <div class="result-section">
+                    <div class="result-section-header">
+                        <h4>📄 文章内容</h4>
+                        <button class="copy-btn" id="copyContentBtn">复制内容</button>
+                    </div>
+                    <div class="result-content-box" id="resultContent"></div>
+                    <div class="result-tags" id="resultTags"></div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="result-actions">
+                    <button class="action-btn regenerate" id="regenerateBtn">重新生成</button>
+                    <button class="action-btn copy-all" id="copyAllBtn">复制全部</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部信息 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2026 小红书文案生成器 | 免费使用 | 持续更新</p>
+            <p class="footer-disclaimer">本工具仅供学习交流使用，生成内容仅供参考</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
