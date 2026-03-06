@@ -1,18 +1,19 @@
-export default async function handler(req, res) {
-    // 只允许POST请求
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' });
-    }
-
-    // 从环境变量获取API Key
-    const apiKey = process.env.ZHIPU_API_KEY;
+export async function onRequestPost(context) {
+    const { request, env } = context;
     
-    if (!apiKey) {
-        return res.status(500).json({ error: 'API key not configured' });
-    }
-
     try {
-        const { type, productName, sellingPoint, painPoint, length } = req.body;
+        const body = await request.json();
+        const { type, productName, sellingPoint, painPoint, length } = body;
+
+        // 从环境变量获取API Key
+        const apiKey = env.ZHIPU_API_KEY;
+        
+        if (!apiKey) {
+            return new Response(JSON.stringify({ error: 'API key not configured' }), {
+                status: 500,
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
 
         const wordCount = length === 'short' ? '250-350字' : '450-600字';
         
@@ -59,14 +60,21 @@ export default async function handler(req, res) {
         const data = await response.json();
         
         if (data.error) {
-            throw new Error(data.error.message);
+            return new Response(JSON.stringify({ error: data.error.message }), {
+                status: 500,
+                headers: { 'Content-Type': 'application/json' }
+            });
         }
 
-        res.status(200).json(data);
+        return new Response(JSON.stringify(data), {
+            headers: { 'Content-Type': 'application/json' }
+        });
 
     } catch (error) {
-        console.error('AI生成失败:', error);
-        res.status(500).json({ error: error.message });
+        return new Response(JSON.stringify({ error: error.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
 }
 
