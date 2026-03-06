@@ -1,13 +1,10 @@
 // 小红书文案生成器 - 主脚本 v3.0
 // 新增：智谱AI API接入
 
-// AI配置（部署时通过环境变量保护）
+// AI配置
 const AI_CONFIG = {
     enabled: true,
     provider: 'zhipu',
-    // 本地测试用，部署时会移除
-    apiKey: '88eceed2af7e44c0a7bb7c9249560b4c.xVhJ4z6gZdBCYSvG',
-    model: 'glm-4-flash', // 智谱最快的模型
     dailyFreeLimit: 3 // 每日免费AI生成次数
 };
 
@@ -857,56 +854,27 @@ function incrementAIUsage() {
     return count;
 }
 
-// 调用智谱AI生成文案
+// 调用智谱AI生成文案（通过安全API代理）
 async function generateWithAI(type, productName, sellingPoint, painPoint, length) {
-    const wordCount = length === 'short' ? '250-350字' : '450-600字';
-    const charCount = length === 'short' ? 300 : 550;
-    
-    const prompt = `你是一个小红书爆款文案专家。请帮我写一篇小红书文案。
-
-【要求】
-1. 文案类型：${getTypeName(type)}
-2. 产品/主题：${productName}
-3. 卖点/特色：${sellingPoint || '效果好、性价比高、值得推荐'}
-4. 用户痛点：${painPoint || '不知道如何选择'}
-5. 正文字数：严格控制在${wordCount}，不要少于${charCount}字
-6. 风格：活泼亲切、有感染力、适合小红书平台
-
-【格式要求】
-标题：（一句话吸引人的标题，带emoji）
-正文：（分段清晰，每段2-3句话，用emoji点缀，总字数${wordCount}）
-标签：#标签1 #标签2 #标签3 #标签4 #标签5
-
-请直接输出文案，正文内容要丰富详细，不要敷衍。`;
-
     try {
-        const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
+        const response = await fetch('/api/generate', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${AI_CONFIG.apiKey}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: AI_CONFIG.model,
-                messages: [
-                    {
-                        role: 'system',
-                        content: '你是小红书爆款文案专家，擅长写吸引人、内容丰富的种草文案。正文必须充实详细，不能太短。'
-                    },
-                    {
-                        role: 'user',
-                        content: prompt
-                    }
-                ],
-                temperature: 0.85,
-                max_tokens: length === 'short' ? 2000 : 3000
+                type,
+                productName,
+                sellingPoint,
+                painPoint,
+                length
             })
         });
 
         const data = await response.json();
         
         if (data.error) {
-            throw new Error(data.error.message);
+            throw new Error(data.error.message || data.error);
         }
 
         const content = data.choices[0].message.content;
