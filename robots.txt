@@ -1,0 +1,9 @@
+# robots.txt for 小红书文案生成器
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://xhs-generator-170.pages.dev/sitemap.xml
+
+# 禁止爬取的路径
+Disallow: /api/
